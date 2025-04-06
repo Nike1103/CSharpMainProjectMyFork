@@ -19,22 +19,16 @@ namespace UnitBrains.Player
             ///////////////////////////////////////
             // Homework 1.3 (1st block, 3rd module)
             ///////////////////////////////////////           
-            if (_overheated)
+            if (GetTemperature() >= overheatTemperature)
             {
-                _overheated = false;
-                _temperature = 0f;
-                return;
+                return; // Прекращаем стрельбу при перегреве
             }
 
-            if (_temperature >= overheatTemperature)
-            {
-                _overheated = true;
-                return;
-            }
+            // Увеличиваем температуру через метод
+            IncreaseTemperature();
 
-            _temperature += 1f;
-
-            for (int i = 0; i < _temperature; i++)
+            // Создаем снаряды (количество = текущая температура)
+            for (int i = 0; i < GetTemperature(); i++)
             {
                 var projectile = CreateProjectile(forTarget);
                 AddProjectileToList(projectile, intoList);
